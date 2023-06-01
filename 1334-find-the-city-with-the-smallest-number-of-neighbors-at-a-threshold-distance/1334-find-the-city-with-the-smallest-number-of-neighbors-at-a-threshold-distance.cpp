@@ -1,52 +1,39 @@
 class Solution {
 public:
+    // using floyd warshal 
     int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
-        vector <vector<pair<int,int>>> adj(n);
+        vector <vector<int>> dist(n, vector<int>(n, 1e9));
         for(auto it : edges){
-            adj[it[0]].push_back({it[1], it[2]});
-            adj[it[1]].push_back({it[0], it[2]});
+            int u = it[0];
+            int v = it[1];
+            int d = it[2];
+            dist[u][v] = d;
+            dist[v][u] = d;
         }
-        vector<set<int>>neighbor(n);
-        
         for(int i = 0 ; i< n ; i++){
-            vector <int> dist(n, 1e9);
-            dist[i] = 0;
-            queue <pair<int,int>>q;
-            q.push({0, i});
-            while(!q.empty()){
-                int dis = q.front().first;
-                int node = q.front().second;
-                q.pop();
-                for(auto it : adj[node]){
-                    int d = it.second;
-                    int v = it.first;
-                    if(dist[v] > dis + d ){
-                        dist[v] = dis+d;
-                        if(dis+d < distanceThreshold){
-                            q.push({dis+d , v});
-                            neighbor[i].insert(v);
-                        }
-                        else if(dis+d == distanceThreshold){
-                            neighbor[i].insert(v);
-                        }
-                    }
+            dist[i][i] = 0;
+        }
+        for(int via = 0 ; via < n ; via ++){
+            for(int i = 0 ;  i < n ; i++){
+                for(int j = 0 ; j< n ; j++){
+                    dist[i][j] = min(dist[i][j], dist[i][via] + dist[via][j]);
                 }
             }
         }
-        // for(int i = 0 ; i< n ; i++){
-        //     cout << "i " << i << " neighbors " << neighbor[i].size() << endl;
-        // }
-        int mincity = neighbor[0].size();
-        for(int i = 0 ; i < n ; i++){
-            if(neighbor[i].size() < mincity){
-                mincity = neighbor[i].size();
+        int maxcity = n+1;
+        int city = -1;
+        for(int i = 0 ; i < n ; i++){ // city
+            int count = 0;
+            for(int j = 0 ; j < n ; j++){ // adjcity
+                if(dist[i][j] <= distanceThreshold){
+                    count += 1;
+                }
+            }
+            if(count <= maxcity){
+                maxcity = count;
+                city = i;
             }
         }
-        for(int i = n-1 ; i >= 0 ; i--){
-            if(neighbor[i].size() == mincity ){
-                return i;
-            }
-        }
-        return 0;
+        return city;
     }
 };
