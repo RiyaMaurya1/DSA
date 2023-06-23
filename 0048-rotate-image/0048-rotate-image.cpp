@@ -1,15 +1,19 @@
 class Solution {
 public:
     void rotate(vector<vector<int>>& matrix) {
-    //  Brute Force Approach is taking elements and put it into other matrix 
+    // lil optimal
+    // space cpmplexity  O(1)
+        
         int n = matrix.size();
-        vector <vector<int>> ans(n, vector<int>(n,0));
-        // matrix[i][j] = ans[j][n-1-i]
+    // transposing the matrix
         for(int i = 0 ; i < n ; i++){
-            for(int j = 0 ; j < n ; j++){
-                ans[j][n-1-i] = matrix[i][j];
+            for(int j = 0 ; j < i ; j++){
+                swap(matrix[i][j], matrix[j][i]);
             }
         }
-        matrix = ans;
+    // taking reverse of each row to get the correct answer.
+        for(int i = 0 ; i< n ; i++){
+            reverse(matrix[i].begin(), matrix[i].end());
+        } 
     }
 };
