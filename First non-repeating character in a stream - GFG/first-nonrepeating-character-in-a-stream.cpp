@@ -15,12 +15,9 @@ class Solution {
 		    for(int i = 0 ; i < n ; i++){
 		        int ch = abs(A[i] - 'a');
 		        if(vis[ch] == 0){ // non repeating
-		          //  vis[ch] = 1;
 		            q.push(A[i]);
 		        }
-		          //  ans += q.front();
-		             
-		          //  int ch = abs(A[i] - 'a');
+		       
 	                bool found = false;
 	                vis[ch]++;
 	                
@@ -48,33 +45,7 @@ class Solution {
 		      // tttttttttttttttttttcccccccccccccccccccccccccccccccccccccccccccccevvvv
 		      
 		      // queue: t cpmxaiswjelby
-		      
-		      //  else{
-		            
-		      //      int ch = abs(A[i] - 'a');
-	       //         bool found = false;
-	       //         vis[ch]++;
-	                
-	       //         while(!q.empty()){
-	                   
-	       //             char c = q.front();
-	                    
-	       //             if(vis[(int)(c-'a')] > 1){
-	       //                 q.pop();
-	       //             }
-	       //             else{
-	       //                 ans += q.front();
-	       //                 found = true;
-	       //                 break;
-	       //             }
-	       //         }
-	       //         if(found == false){
-	       //             ans += '#';
-	       //         }
-		                
-		      //  }
-		            
-		  //  }
+		   
 		    
 		    return ans;
 		}
