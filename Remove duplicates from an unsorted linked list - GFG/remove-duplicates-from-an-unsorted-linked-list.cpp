@@ -50,16 +50,8 @@ class Solution
      while(temp != NULL){
          int val = temp->data;
          if(mp[val] == 1){
-            //  if(temp->next == NULL){
-            //      prev->next == NULL;
-            //      continue;
-            //  }
-            //  while(temp != NULL && mp[temp->data] == 1){
-            //      temp = temp->next;
-            //  }
              temp = temp->next; 
              prev->next = temp;
-            //  temp = temp->next; 
             }
          else{
              mp[val] = 1;
