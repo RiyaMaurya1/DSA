@@ -8,6 +8,8 @@
  */
 class Solution {
 public:
+//     timecomplexity : O(2n+2m);
+//     space complexity : O(1);
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         ListNode* tempA = headA;
         ListNode* tempB = headB;
