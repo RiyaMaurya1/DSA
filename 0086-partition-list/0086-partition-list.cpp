@@ -10,62 +10,39 @@
  */
 class Solution {
 public:
+    // timecomplexity = O(n);
+    // Space complexity = O(1);
+    
     ListNode* partition(ListNode* head, int x) {
 
         if(head == NULL || head->next == NULL){
             return head;
         }
         ListNode* temp = head;
-        ListNode* head2 = new ListNode();
-        ListNode* temp2;
-        bool flag = false;
+        ListNode* left = new ListNode(0);
+        ListNode* right = new ListNode(0);
+        
+        ListNode* l = left;
+        ListNode* r = right;
         
         while(temp != NULL){
-            
+             ListNode* newnode = new ListNode(temp->val);
             if(temp->val < x){
-                if(flag == false){
-                    head2->val = temp->val;
-                    head2->next = NULL;
-                    temp2 = head2;
-                    flag = true;
-                    temp = temp->next;
-                    continue;
-                }
-                
-                ListNode* newnode = new ListNode(temp->val);
-                temp2->next = newnode;
-                temp2 = newnode;
+                l->next = newnode;
+                l = newnode;
                 temp = temp->next;
             }
             else{
+                r->next = newnode;
+                r = newnode;
                 temp = temp->next;
             }
             
         }
+        r->next = NULL;
+        l->next = right->next;
         
-        temp = head;
-        while(temp != NULL){
-            
-            if(temp->val >= x){
-                if(head->val >= x && flag == false){
-                    head2->val = temp->val;
-                    head2->next = NULL;
-                    temp2 = head2;
-                    flag = true;
-                    temp = temp->next;
-                    continue;
-                }
-                
-                ListNode* newnode = new ListNode(temp->val);
-                temp2->next = newnode;
-                temp2 = newnode;
-                temp = temp->next;
-            }
-            else{
-                temp = temp->next;
-            }
-            
-        }
-        return head2;
+        
+        return left->next;
     }
 };
