@@ -12,7 +12,7 @@
 class Solution {
 public:
     int ans = 0;
-    void traverse(TreeNode* root, long target, long sum){
+    void traverse(TreeNode* root, long& target, long sum){
         if(sum == target){
             ans++;
         }
@@ -27,7 +27,7 @@ public:
         return;
         
     }
-    void call(TreeNode* root, long target){
+    void call(TreeNode* root, long& target){
         if(root != NULL){
             traverse(root, target, root->val);
         }
