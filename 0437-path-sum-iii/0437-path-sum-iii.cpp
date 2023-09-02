@@ -11,41 +11,22 @@
  */
 class Solution {
 public:
-    int ans = 0;
-    void traverse(TreeNode* root, long target, long sum){
-        if(sum == target){
-            ans++;
-        }
-        if(root->left != NULL){
-            int val = root->left->val;
-            traverse(root->left, target, sum+val);
-        }
-        if(root->right != NULL){
-            int val = root->right->val;
-            traverse(root->right, target, sum+val);
-        }
-        return;
-        
+    int ans=0;
+    
+    void dfs(TreeNode* root, long sum){
+        if(!root)return;
+        if(root->val==sum)ans++;
+        dfs(root->left,sum-root->val);
+        dfs(root->right,sum-root->val);
     }
-    void call(TreeNode* root, long target){
-        if(root != NULL){
-            traverse(root, target, root->val);
+    
+    int pathSum(TreeNode* root, int sum) {
+        if(root){
+            dfs(root,sum);
+            pathSum(root->left,sum);
+            pathSum(root->right,sum);
         }
-        if(root->left != NULL){
-            call(root->left, target);
-        }
-        if(root->right != NULL){
-            call(root->right, target);
-        }
-        
-        return;
-    }
-    int pathSum(TreeNode* root, int targetSum) {
-        if(root == NULL){
-            return 0;
-        }
-        long target = targetSum;
-        call(root, target);
         return ans;
     }
+    
 };
