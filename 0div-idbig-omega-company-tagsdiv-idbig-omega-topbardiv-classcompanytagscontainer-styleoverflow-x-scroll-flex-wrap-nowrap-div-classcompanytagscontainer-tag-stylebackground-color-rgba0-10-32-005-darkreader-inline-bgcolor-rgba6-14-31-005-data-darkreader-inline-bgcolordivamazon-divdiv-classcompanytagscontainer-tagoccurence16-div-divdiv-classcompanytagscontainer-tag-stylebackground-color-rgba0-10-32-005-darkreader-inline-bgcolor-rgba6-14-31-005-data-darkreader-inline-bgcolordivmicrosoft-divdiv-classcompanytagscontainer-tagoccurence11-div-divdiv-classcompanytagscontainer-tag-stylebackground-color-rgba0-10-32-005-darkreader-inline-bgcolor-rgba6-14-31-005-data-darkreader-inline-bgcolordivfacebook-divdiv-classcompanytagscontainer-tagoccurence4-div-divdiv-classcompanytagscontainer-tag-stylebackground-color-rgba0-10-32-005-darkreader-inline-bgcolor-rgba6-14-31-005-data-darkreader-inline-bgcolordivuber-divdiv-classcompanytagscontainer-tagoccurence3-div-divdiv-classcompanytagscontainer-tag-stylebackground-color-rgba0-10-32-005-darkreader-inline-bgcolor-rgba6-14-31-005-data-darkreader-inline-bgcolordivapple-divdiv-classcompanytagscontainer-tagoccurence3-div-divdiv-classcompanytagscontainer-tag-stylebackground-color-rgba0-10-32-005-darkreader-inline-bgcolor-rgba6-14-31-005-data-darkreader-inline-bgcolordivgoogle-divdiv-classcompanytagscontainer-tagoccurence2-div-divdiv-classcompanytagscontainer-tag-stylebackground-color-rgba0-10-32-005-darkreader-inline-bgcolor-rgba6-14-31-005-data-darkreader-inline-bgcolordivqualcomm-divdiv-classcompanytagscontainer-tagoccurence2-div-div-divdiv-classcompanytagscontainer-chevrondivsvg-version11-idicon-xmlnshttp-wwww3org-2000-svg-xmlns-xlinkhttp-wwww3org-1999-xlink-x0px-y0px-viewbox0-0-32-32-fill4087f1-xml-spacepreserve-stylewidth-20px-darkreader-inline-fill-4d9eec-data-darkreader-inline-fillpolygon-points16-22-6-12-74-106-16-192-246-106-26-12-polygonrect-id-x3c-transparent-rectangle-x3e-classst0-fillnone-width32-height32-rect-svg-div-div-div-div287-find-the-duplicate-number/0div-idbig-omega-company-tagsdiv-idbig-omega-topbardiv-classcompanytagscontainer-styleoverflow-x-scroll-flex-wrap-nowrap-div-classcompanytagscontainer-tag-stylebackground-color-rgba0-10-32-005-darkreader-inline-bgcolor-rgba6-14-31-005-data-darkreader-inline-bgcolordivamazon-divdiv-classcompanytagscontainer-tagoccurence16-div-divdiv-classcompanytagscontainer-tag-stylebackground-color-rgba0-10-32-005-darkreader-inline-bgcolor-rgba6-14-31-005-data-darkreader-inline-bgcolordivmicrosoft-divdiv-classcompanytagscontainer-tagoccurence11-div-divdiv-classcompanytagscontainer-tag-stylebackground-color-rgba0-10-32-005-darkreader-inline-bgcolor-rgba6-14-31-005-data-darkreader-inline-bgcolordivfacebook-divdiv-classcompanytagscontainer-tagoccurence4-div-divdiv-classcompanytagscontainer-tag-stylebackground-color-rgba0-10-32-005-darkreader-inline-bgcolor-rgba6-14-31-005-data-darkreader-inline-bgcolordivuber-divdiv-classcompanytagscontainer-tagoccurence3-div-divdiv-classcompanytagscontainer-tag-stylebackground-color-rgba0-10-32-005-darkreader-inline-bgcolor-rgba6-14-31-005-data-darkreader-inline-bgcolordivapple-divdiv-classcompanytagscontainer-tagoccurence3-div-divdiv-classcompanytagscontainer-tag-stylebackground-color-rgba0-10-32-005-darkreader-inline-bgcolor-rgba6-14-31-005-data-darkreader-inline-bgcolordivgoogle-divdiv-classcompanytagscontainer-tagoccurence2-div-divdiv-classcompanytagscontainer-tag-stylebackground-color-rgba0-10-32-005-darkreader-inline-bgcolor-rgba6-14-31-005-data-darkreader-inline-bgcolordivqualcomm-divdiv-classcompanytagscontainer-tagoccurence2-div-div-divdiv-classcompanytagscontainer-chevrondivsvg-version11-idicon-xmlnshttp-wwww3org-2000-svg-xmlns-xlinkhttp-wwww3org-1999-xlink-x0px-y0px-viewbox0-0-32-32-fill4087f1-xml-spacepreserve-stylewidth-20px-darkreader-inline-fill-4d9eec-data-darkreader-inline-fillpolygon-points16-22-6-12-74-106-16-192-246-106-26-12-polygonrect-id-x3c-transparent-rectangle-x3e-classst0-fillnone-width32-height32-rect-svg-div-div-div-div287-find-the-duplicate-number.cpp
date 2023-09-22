@@ -2,12 +2,12 @@ class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
         int n = nums.size();
-       map <int,int>mp;
         for(int i = 0 ; i < n ; i++){
-            if(mp[nums[i]] == 1){
-                return nums[i];
+            int ind = abs(nums[i]);
+            if(nums[ind] < 0){
+                return ind;
             }
-            mp[nums[i]]++;
+            nums[ind] = -nums[ind];
         }
         return 0;
     }
